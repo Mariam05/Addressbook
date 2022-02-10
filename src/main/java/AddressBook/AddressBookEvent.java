@@ -1,3 +1,5 @@
+package AddressBook;
+
 import java.util.ArrayList;
 
 public class AddressBookEvent {

@@ -1,9 +1,10 @@
+package AddressBook;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class MainFrame extends JFrame implements AddressBookListener {
 
@@ -23,7 +24,6 @@ public class MainFrame extends JFrame implements AddressBookListener {
         controller.subscribeToModel(this);
 
         this.setSize(new Dimension(300, 500));
-        this.setTitle("Address Book");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
 
@@ -111,9 +111,17 @@ public class MainFrame extends JFrame implements AddressBookListener {
 
 
     public static void main(String[] args){
-        AddressBook addressBook = new AddressBook();
-        MainFrame view = new MainFrame(new AddressBookController(addressBook));
+//        AddressBook.AddressBook addressBook = new AddressBook.AddressBook();
+//        AddressBook.MainFrame view = new AddressBook.MainFrame(new AddressBook.AddressBookController(addressBook));
+
+        ApplicationLauncher apl = new ApplicationLauncher();
+        apl.launch();
     }
 
 
+//    private void init() {
+//        System.out.println("Mainframe init");
+//        AddressBook.AddressBook addressBook = new AddressBook.AddressBook();
+//        AddressBook.MainFrame view = new AddressBook.MainFrame(new AddressBook.AddressBookController(addressBook));
+//    }
 }

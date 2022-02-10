@@ -1,4 +1,7 @@
-/home/mariam/IdeaProjects/AddressBook/src/main/java/MainFrame.java
-/home/mariam/IdeaProjects/AddressBook/src/main/java/BuddyInfo.java
-/home/mariam/IdeaProjects/AddressBook/src/main/java/View2.java
-/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/ApplicationLauncher.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/AddressBook.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/BuddyInfo.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/AddressBookEvent.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/AddressBookListener.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/MainFrame.java
+/home/mariam/IdeaProjects/AddressBook/src/main/java/AddressBook/AddressBookController.java

@@ -1,8 +1,6 @@
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
+package AddressBook;
 
 import javax.persistence.*;
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +13,7 @@ public class AddressBook {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<BuddyInfo> buddyInfoList;
+    private Collection<BuddyInfo> buddyInfoList;
 
     @Transient
     private List<AddressBookListener> listeners;
@@ -35,7 +33,7 @@ public class AddressBook {
     }
 
     public ArrayList<BuddyInfo> getBuddyInfoList(){
-        return buddyInfoList;
+        return new ArrayList<>(buddyInfoList);
     }
 
     public void removeBuddy(int buddyIndex) {
@@ -59,4 +57,8 @@ public class AddressBook {
 
     }
 
+    private void init() {
+        buddyInfoList = new ArrayList<>();
+        listeners = new ArrayList<>();
+    }
 }

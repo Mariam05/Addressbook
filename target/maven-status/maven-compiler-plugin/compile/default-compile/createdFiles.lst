@@ -1,7 +1,10 @@
-View2$2.class
-View2$1.class
-AddressBook.class
-View2.class
-BuddyInfo.class
-MainFrame.class
-View2$3.class
+AddressBook/AddressBook.class
+AddressBook/BuddyInfo.class
+AddressBook/AddressBookListener.class
+AddressBook/MainFrame$3.class
+AddressBook/MainFrame.class
+AddressBook/AddressBookEvent.class
+AddressBook/MainFrame$2.class
+AddressBook/AddressBookController.class
+AddressBook/ApplicationLauncher.class
+AddressBook/MainFrame$1.class
