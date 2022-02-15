@@ -2,25 +2,35 @@ package AddressBook;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
 public class AddressBook {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Collection<BuddyInfo> buddyInfoList;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity=BuddyInfo.class)
+    private List<BuddyInfo> buddyInfoList;
 
-    @Transient
-    private List<AddressBookListener> listeners;
+    private String name;
 
-    public AddressBook(){
+    protected AddressBook(){
+        this("AddressBook");
+    }
+
+    public AddressBook(String name){
+        this.name = name;
         buddyInfoList = new ArrayList<>();
-        listeners = new ArrayList<>();
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public Long getId(){
@@ -29,36 +39,23 @@ public class AddressBook {
 
     public void addBuddy(BuddyInfo buddyInfo) {
         buddyInfoList.add(buddyInfo);
-        notifyListeners(new AddressBookEvent(this));
     }
 
-    public ArrayList<BuddyInfo> getBuddyInfoList(){
-        return new ArrayList<>(buddyInfoList);
+    public List<BuddyInfo> getBuddyInfoList(){
+        return this.buddyInfoList;
     }
 
-    public void removeBuddy(int buddyIndex) {
-        buddyInfoList.remove(buddyIndex);
-        notifyListeners(new AddressBookEvent(this));
+    public void removeBuddy(Long buddyID) {
+        buddyInfoList.removeIf(buddyInfo -> buddyInfo.getId() == buddyID);
     }
 
-    public void clear(){
-        buddyInfoList = new ArrayList<>();
-        notifyListeners(new AddressBookEvent(this));
+    @Override
+    public String toString(){
+        String str = "AddressBook " + this.name + "\n";
+//        for (BuddyInfo bud : buddyInfoList){
+//            str += bud.toString();
+//        }
+        return str;
     }
 
-    public void addListener(AddressBookListener listener){
-        listeners.add(listener);
-    }
-
-    private void notifyListeners(AddressBookEvent event){
-        for(AddressBookListener listener: listeners){
-            listener.handleAddressBookEvent(event);
-        }
-
-    }
-
-    private void init() {
-        buddyInfoList = new ArrayList<>();
-        listeners = new ArrayList<>();
-    }
 }

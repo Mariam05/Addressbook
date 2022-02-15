@@ -13,9 +13,9 @@ public class BuddyInfo {
     private String name;
     private String phoneNumber;
 
+
     public BuddyInfo(){
-        this.name = "John Doe";
-//        this.phoneNumber = ""
+        this("Jane Doe", "0123456789");
     }
 
     public BuddyInfo(String name, String phoneNumber) {
@@ -44,7 +44,7 @@ public class BuddyInfo {
 
     @Override
     public String toString(){
-        return this.name + " " + this.getPhoneNumber();
+        return this.id + " " +  this.name + " " + this.getPhoneNumber();
     }
 
 }
