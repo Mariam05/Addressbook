@@ -11,6 +11,9 @@
             <h1>All Address Books</h1>
         </div>
     </div>
+    <div>
+        <a th:href="@{/book/new}" th:border="1" th:background="blue">New</a>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <table class="table">
@@ -23,8 +26,8 @@
                 <tbody>
                 <tr th:each="addressbook : ${addressbooks}">
 
-                    <td><span th:text="${addressbook.id}">  </span></td>
-                    <td><span th:text="${addressbook.name}">  </span></td>
+                    <td><a th:href="@{/book/{id}(id=${addressbook.id})}"><span th:text="${addressbook.id}">  </span></a></td>
+                    <td><a th:href="@{/book/{id}(id=${addressbook.id})}"><span th:text="${addressbook.name}">  </span></a></td>
 
                 </tr>
                 </tbody>

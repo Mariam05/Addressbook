@@ -7,9 +7,15 @@
 
 <div class="container">
     <div class="row">
+        <a th:href=@{/books}><- Back</a>
+    </div>
+    <div class="row">
         <div class="col-md-12">
-            <h1 th:text="${addressbookname}"></h1>
+            <h1 th:text="${addressbook.getName()}"></h1>
         </div>
+    </div>
+    <div class="row">
+        <a th:href="@{/bud/new/{book_id}(book_id=${addressbook.getId()})}" th:border="1">Add Buddy</a>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -22,10 +28,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${buddies!=null and buddies.empty}">
+                <tr th:if="${addressbook.getBuddyInfoList()==null}">
                     <td colspan="2"> No Buddies </td>
                 </tr>
-                <tr th:each="buddy : ${buddies}">
+                <tr th:each="buddy : ${addressbook.getBuddyInfoList()}">
 
                     <td><span th:text="${buddy.id}">  </span></td>
                     <td><span th:text="${buddy.name}">  </span></td>

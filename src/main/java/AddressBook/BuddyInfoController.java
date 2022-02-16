@@ -11,16 +11,18 @@ public class BuddyInfoController {
     @Autowired
     BuddyInfoRepository repository;
 
-    @GetMapping("/buddy")
-    public String createBuddy(@RequestParam(value = "name", defaultValue = "Jane") String name,
-                              @RequestParam(value = "phone", defaultValue = "123") String phonenum,
-                              Model model) {
+    @Autowired
+    AddressBookRepository book_repository;
 
-        BuddyInfo buddyInfo = new BuddyInfo(name, phonenum);
-        repository.save(buddyInfo);
-        model.addAttribute("buddy", buddyInfo);
-        return "buddy";
+
+    @GetMapping("/bud/new/{book_id}")
+    public String newBudForm(@PathVariable String book_id, Model model) {
+        BuddyInfo bud = new BuddyInfo();
+        model.addAttribute("buddyInfo", new BuddyInfo());
+        model.addAttribute("addressbookid", book_id);
+        return "buddyform";
     }
+
 
 
     @DeleteMapping("/buddy/delete")
