@@ -1,48 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>All Buddies</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-</head>
-<body>
+    <head>
+        <title>All Buddies</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    </head>
+    <body>
 
-<div class="container">
-    <div class="row">
-        <a th:href=@{/books}><- Back</a>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h1 th:text="${addressbook.getName()}"></h1>
+        <div class="container">
+            <div class="row">
+                <a th:href="@{/index}"><- Back</a>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 th:text="${addressbook.getName()}"></h1>
+                </div>
+            </div>
+            <div class="row">
+                <a th:href="@{/bud/new/{book_id}(book_id=${addressbook.getId()})}" th:border="1">Add Buddy</a>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Id </th>
+                                <th> Name </th>
+                                <th> Phone Number </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${addressbook.getBuddyInfoList()==null}">
+                                <td colspan="2"> No Buddies </td>
+                            </tr>
+                            <tr th:each="buddy : ${addressbook.getBuddyInfoList()}">
+                                <td><span th:text="${buddy.id}">  </span></td>
+                                <td><span th:text="${buddy.name}">  </span></td>
+                                <td><span th:text="${buddy.phoneNumber}">  </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <a th:href="@{/bud/new/{book_id}(book_id=${addressbook.getId()})}" th:border="1">Add Buddy</a>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th> Id </th>
-                    <th> Name </th>
-                    <th> Phone Number </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${addressbook.getBuddyInfoList()==null}">
-                    <td colspan="2"> No Buddies </td>
-                </tr>
-                <tr th:each="buddy : ${addressbook.getBuddyInfoList()}">
 
-                    <td><span th:text="${buddy.id}">  </span></td>
-                    <td><span th:text="${buddy.name}">  </span></td>
-                    <td><span th:text="${buddy.phoneNumber}">  </span></td>
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-</body>
+    </body>
 </html>

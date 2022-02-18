@@ -1,6 +1,9 @@
 package AddressBook;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +16,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @Controller
 public class AddressBookController {
 
@@ -24,24 +28,39 @@ public class AddressBookController {
     @Autowired
     BuddyInfoRepository buddyInfoRepository;
 
-    @GetMapping("/book/new")
+    @GetMapping("/addressbook/new")
     public String newBookForm(AddressBook addressBook){
-//        model.addAttribute("addressB/ook", new AddressBook());
         return "newbookform";
     }
 
-
-    @PostMapping("/book/new")
+    @PostMapping("/addressbook/new")
     public String createAddressBook(AddressBook addressBook, BindingResult result, Model model){
         log.info("in create address book");
         addressBookRepository.save(addressBook);
         model.addAttribute("addressbook", addressBook);
         return "addressbook";
     }
-//
-    @GetMapping("/book/{id}")
-    public String getAddressBook(@PathVariable("id") String id, Model model){
-        AddressBook ab = addressBookRepository.findById(Long.parseLong(id)).orElse(null);
+
+    @PostMapping("/bud/new/{book_id}")
+    public String addBuddy(@PathVariable String book_id, BuddyInfo buddyInfo, Model model){
+        log.info("in addbuddy addressbook");
+        AddressBook ab = addressBookRepository.findById(Long.parseLong(book_id)).orElse(null);
+
+        buddyInfoRepository.save(buddyInfo);
+        ab.addBuddy(buddyInfo);
+        addressBookRepository.save(ab);
+        log.info("buddyinfo saved. buddy:  " + buddyInfo.toString());
+
+        model.addAttribute("addressbook", ab);
+
+        return "redirect:/books/" + ab.getId();
+    }
+
+    @GetMapping("/addressbook/get/{id}")
+    public String addressBookPage(@PathVariable("id") String id, Model model){
+        log.info("in getaddressbook");
+        AddressBook ab;
+        ab = addressBookRepository.findById(Long.parseLong(id)).orElse(null);
 
         log.info("getting bud");
         if (ab != null){
@@ -51,33 +70,93 @@ public class AddressBookController {
             }
         } else {
             log.warn("Couldn't find addressbook");
-            return "addressbooklist";
+            return "addressbook";
         }
 
         return "addressbook";
     }
 
-    @GetMapping("/books")
-    public String getAllAddressBooks(Model model){
+    @GetMapping("/addressbooks")
+    public String allAddressBooks(Model model){
         List<AddressBook> addressBooks = new ArrayList<>();
-       addressBookRepository.findAll().forEach(addressBooks::add);
-       model.addAttribute("addressbooks", addressBooks);
-       return "addressbooklist";
+        addressBookRepository.findAll().forEach(addressBooks::add);
+        model.addAttribute("addressbooks", addressBooks);
+        return "addressbooklist";
 
     }
 
-    @PostMapping("/bud/new/{book_id}")
-    public String addBuddy(@PathVariable String book_id, BuddyInfo buddyInfo, Model model){
-        log.info("in addbuddy addressbook");
+    // SPA methods
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/book/new")
+    public String newBook(AddressBook addressBook){
+        return "newbookform";
+    }
+
+    @JsonBackReference
+    @PostMapping(value = "/book/new")
+    public @ResponseBody AddressBook saveAddressBook(@RequestParam(value = "name", required = false) String name)   {
+        log.info("in create address book. param = " + name);
+        AddressBook addressBook = new AddressBook(name);
+        addressBookRepository.save(addressBook);
+        return addressBook;
+    }
+
+    @JsonBackReference
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping(value = "/bud/save")
+    public @ResponseBody BuddyInfo saveBud(@RequestParam(value = "name", required = false) String name ,
+                                           @RequestParam(value = "phone", required = false) String phone,
+                                           @RequestParam(value = "book", required = false) String book_id)   {
+        log.info("in save bud. param = " + name +  " phone: " + phone + " book: " + book_id );
+        BuddyInfo buddyInfo = new BuddyInfo(name, phone);
         AddressBook ab = addressBookRepository.findById(Long.parseLong(book_id)).orElse(null);
-        buddyInfo.setAddressBook(ab);
+        if (ab!= null) { log.info("address book name: " + ab.getName()); }
+
         buddyInfoRepository.save(buddyInfo);
         ab.addBuddy(buddyInfo);
         addressBookRepository.save(ab);
-        log.info("buddyinfo saved. buddy:  " + buddyInfo.toString() + " addressbook: " + buddyInfo.getAddressBook().toString());
 
-        model.addAttribute("addressbook", ab);
+        return buddyInfo;
+    }
 
-        return "addressbook";
+    @JsonBackReference
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/book/{id}")
+    public @ResponseBody AddressBook getAddressBook(@PathVariable("id") String id, Model model){
+        log.info("in getaddressbook");
+        AddressBook ab;
+        ab = addressBookRepository.findById(Long.parseLong(id)).orElse(null);
+
+        log.info("getting bud");
+        if (ab != null){
+            model.addAttribute("addressbook", ab);
+            for (BuddyInfo bud : ab.getBuddyInfoList()){
+                log.info("bud: " + bud.toString());
+            }
+        } else {
+            log.warn("Couldn't find addressbook");
+            return new AddressBook();
+        }
+
+        return ab;
+    }
+
+    @JsonBackReference
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/books")
+    public @ResponseBody List<AddressBook> getAllAddressBooks(Model model){
+       List<AddressBook> addressBooks = new ArrayList<>();
+       addressBookRepository.findAll().forEach(addressBooks::add);
+       model.addAttribute("addressbooks", addressBooks);
+       return addressBooks;
+
+    }
+
+    @JsonBackReference
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/index")
+    public String index(){
+        return "redirect:/index.html";
     }
 }

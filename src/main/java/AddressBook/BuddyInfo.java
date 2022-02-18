@@ -11,9 +11,6 @@ public class BuddyInfo {
     private String name;
     private String phoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "address_book_id")
-    private AddressBook addressBook;
 
     public BuddyInfo(){
         this("Jane Doe", "0123456789");
@@ -24,13 +21,6 @@ public class BuddyInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    public AddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    public void setAddressBook(AddressBook addressBook) {
-        this.addressBook = addressBook;
-    }
 
     public String getName() {
         return name;
