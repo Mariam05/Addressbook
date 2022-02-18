@@ -5,8 +5,6 @@ $(document).ready(function() {
     }).then(function(data, status, jqxhr) {
         console.log(data);
         createAddressBooksTable(data);
-        // $('.greeting-id').append(data.id);
-        // $('.greeting-content').append(data.content);
         console.log(jqxhr);
     });
 });
@@ -56,10 +54,7 @@ function createAddressBooksTable(data){
     $('#buddiestable').hide();
     $('#newbudarea').hide();
 
-    // $("#new-bud-form").hide();
     for (let book in data ){
-        // var on_click = 'onclick=getAddressBook(${data[book].id})';
-        // onclick='getAddressBook('' + bookid + '')'>
         const bookid = data[book].id;
         const book_row = '<tr><td><button type="button" onclick="getAddressBook(event)" name="idbtn" data-arg1=' + bookid + '>' + data[book].id + '</button></td><td><button type="button" onclick="getAddressBook(event)" name="idbtn" data-arg1=' + bookid + '>' + data[book].name + '</button></td></tr>';
         $("#bookstable").find('tbody').append(book_row);
@@ -77,8 +72,6 @@ getAddressBook = (event) => {
     }).then(function(data, status, jqxhr) {
         console.log(data);
         createBuddiesTable(data);
-        // $('.greeting-id').append(data.id);
-        // $('.greeting-content').append(data.content);
         console.log(jqxhr);
     });
 }

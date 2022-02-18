@@ -29,8 +29,8 @@
                 <tbody>
                 <tr th:each="addressbook : ${addressbooks}">
 
-                    <td><a th:href="@{/book/{id}(id=${addressbook.id})}"><span th:text="${addressbook.id}">  </span></a></td>
-                    <td><a th:href="@{/book/{id}(id=${addressbook.id})}"><span th:text="${addressbook.name}">  </span></a></td>
+                    <td><a th:href="@{/addressbook/get/{id}(id=${addressbook.id})}"><span th:text="${addressbook.id}">  </span></a></td>
+                    <td><a th:href="@{/addressbook/get/{id}(id=${addressbook.id})}"><span th:text="${addressbook.name}">  </span></a></td>
 
                 </tr>
                 </tbody>

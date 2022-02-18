@@ -53,7 +53,7 @@ public class AddressBookController {
 
         model.addAttribute("addressbook", ab);
 
-        return "redirect:/books/" + ab.getId();
+        return "addressbook";
     }
 
     @GetMapping("/addressbook/get/{id}")
