@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Address Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="spa.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>All Address Books</h1>
+        </div>
+    </div>
+    <div>
+        <a id="newbook" th:id="newbook" th:href="@{/book/new}" th:border="1" th:background="blue">New</a>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Name </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="addressbook : ${addressbooks}">
+
+                    <td><a th:href="@{/addressbook/get/{id}(id=${addressbook.id})}"><span th:text="${addressbook.id}">  </span></a></td>
+                    <td><a th:href="@{/addressbook/get/{id}(id=${addressbook.id})}"><span th:text="${addressbook.name}">  </span></a></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
