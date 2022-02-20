@@ -16,7 +16,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 @Controller
 public class AddressBookController {
 
@@ -102,7 +102,6 @@ public class AddressBookController {
     }
 
     @JsonBackReference
-    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping(value = "/bud/save")
     public @ResponseBody BuddyInfo saveBud(@RequestParam(value = "name", required = false) String name ,
                                            @RequestParam(value = "phone", required = false) String phone,
@@ -120,7 +119,6 @@ public class AddressBookController {
     }
 
     @JsonBackReference
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/book/{id}")
     public @ResponseBody AddressBook getAddressBook(@PathVariable("id") String id, Model model){
         log.info("in getaddressbook");
@@ -142,7 +140,6 @@ public class AddressBookController {
     }
 
     @JsonBackReference
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/books")
     public @ResponseBody List<AddressBook> getAllAddressBooks(Model model){
        List<AddressBook> addressBooks = new ArrayList<>();
@@ -153,7 +150,6 @@ public class AddressBookController {
     }
 
     @JsonBackReference
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/index")
     public String index(){
         return "redirect:/index.html";
