@@ -12,4 +12,4 @@ A Java project to learn Spring+Thymeleaf+H2+JPA+CI/CD
   
 ## Lab 6 Info:
 - Go to https://sysc4806-mariam-addressbook.herokuapp.com (SPA page) or https://sysc4806-mariam-addressbook.herokuapp.com/addressbooks (lab5 part 1)
-- Please note that the SPA version won't work if you have shields or ad blocker turned on.
+- If the SPA version is acting up for some reason, try turning ad blocker off or putting shields down.
