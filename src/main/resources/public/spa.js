@@ -1,7 +1,7 @@
 $(document).ready(function() {
     console.log('loaded');
     $.ajax({
-        url: "http://localhost:8080/books"
+        url: "/books"
     }).then(function(data, status, jqxhr) {
         console.log(data);
         createAddressBooksTable(data);
@@ -18,7 +18,7 @@ $(document).on("submit", "#newbookform", function() {
     $.ajax({
         type: "POST",
         data: {name: formData.name},
-        url: "http://localhost:8080/book/new"
+        url: "/book/new"
     }).then(function(data, status, jqxhr) {
         console.log(data);
         const bookid = data.id;
@@ -39,7 +39,7 @@ $(document).on("click", "#newbudbtn", function() {
     $.ajax({
         type: "POST",
         data: formData,
-        url: "http://localhost:8080/bud/save",
+        url: "/bud/save",
     }).then(function(data, status, jqxhr) {
         console.log("new bud data: " + data);
         const book_row = '<tr><td>' + data.id + '</td><td>' + data.name + '</td><td>' + data.phoneNumber + '</td></tr>';
@@ -68,7 +68,7 @@ getAddressBook = (event) => {
     book_id = parseInt(arg1);
     console.log("arg1 : " + arg1);
     $.ajax({
-        url: "http://localhost:8080/book/" + book_id
+        url: "/book/" + book_id
     }).then(function(data, status, jqxhr) {
         console.log(data);
         createBuddiesTable(data);
