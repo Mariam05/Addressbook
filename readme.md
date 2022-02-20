@@ -1,4 +1,6 @@
 A Java project to learn Spring+Thymeleaf+H2+JPA
+[![CircleCI](https://circleci.com/gh/Mariam05/Addressbook/tree/master.svg?style=svg)](https://circleci.com/gh/Mariam05/Addressbook/tree/master)
+
 
 ## Lab 5 Info: 
 - Run the application using spring-boot
