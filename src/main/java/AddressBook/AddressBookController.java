@@ -85,13 +85,12 @@ public class AddressBookController {
 
     }
 
-    // SPA methods
-
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/book/new")
     public String newBook(AddressBook addressBook){
         return "newbookform";
     }
+
+    // SPA methods
 
     @JsonBackReference
     @PostMapping(value = "/book/new")
@@ -110,7 +109,7 @@ public class AddressBookController {
                                            @RequestParam(value = "book", required = false) String book_id)   {
         log.info("in save bud. param = " + name +  " phone: " + phone + " book: " + book_id );
         BuddyInfo buddyInfo = new BuddyInfo(name, phone);
-        AddressBook ab = addressBookRepository.findById(Long.parseLong(book_id)).orElse(null);
+        AddressBook ab = addressBookRepository.findById(Long.parseLong(book_id)).orElse(new AddressBook());
         if (ab!= null) { log.info("address book name: " + ab.getName()); }
 
         buddyInfoRepository.save(buddyInfo);

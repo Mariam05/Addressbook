@@ -1,23 +1,24 @@
 import AddressBook.BuddyInfo;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
 
 public class BuddyInfoTest {
 
     private BuddyInfo buddy;
     private BuddyInfo secondBuddy;
-    private BuddyInfo copyBuddy;
 
-//    @Before
-//    public void setUp() {
-//        buddy = new AddressBook.BuddyInfo("Harry Potter", "4 Privet Drive", "12345");
-//        secondBuddy = new AddressBook.BuddyInfo("Harry Potter", "4 Privet Drive", "12345");
-//        copyBuddy = new AddressBook.BuddyInfo(buddy);
-//    }
-//
-//    @Test
-//    public void testBuddyInfoCopyConstructor() {
-//        assertTrue(buddy.isEquals(copyBuddy));
-//    }
+    @Before
+    public void setUp() {
+        buddy = new AddressBook.BuddyInfo("Harry Potter", "12345");
+        secondBuddy = new AddressBook.BuddyInfo("Harry Potter",  "12345");
+    }
+
+    @Test
+    public void testSetAge() {
+        buddy.setName("Pooh");
+        Assert.assertEquals("Pooh", buddy.getName());
+    }
 
 //    @Test
 //    public void testIsEquals() {
@@ -29,14 +30,10 @@ public class BuddyInfoTest {
 //        assertEquals("Hey there bud!",buddy.greetBuddy());
 //    }
 //
-//    @Test
-//    public void testSetAge() {
-//        buddy.setAge(20);
-//        assertEquals(20, buddy.getAge());
-//    }
 
-    @Test
-    public void testJPA(){
+
+//    @Test
+//    public void testJPA(){
 //        AddressBook.BuddyInfo buddy1 = new AddressBook.BuddyInfo();
 //        buddy1.setName("ArthurReid");
 //        buddy1.setPhoneNumber("1234567890");
@@ -75,5 +72,5 @@ public class BuddyInfoTest {
 //        em.close();
 //
 //        emf.close();
-    }
+//    }
 }

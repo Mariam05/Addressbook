@@ -24,12 +24,16 @@ public class BuddyInfoController {
     }
 
 
-
     @DeleteMapping("/buddy/delete")
     public String deleteBuddy(@RequestParam(value="id") String id, Model model){
         repository.deleteById(Long.parseLong(id));
         model.addAttribute("buddies", repository.findAll());
         return "addressbook";
     }
+
+//    @GetMapping("/buddy/new")
+//    public @ResponseBody BuddyInfo getBuddy(@PathVariable(value = "id") String id, Model model){
+//
+//    }
 
 }
